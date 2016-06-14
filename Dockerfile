@@ -6,7 +6,7 @@ ARG VERSION=0.10.0.0
 LABEL name="kafka" version=$VERSION
 
 RUN apk add --no-cache curl bash \
-    && mkdir /opt/kafka \
+    && mkdir -p /opt/kafka \
     && curl -L $ARCHIVE -o /opt/kafka/kafka.tar.gz && \
     cd /opt/kafka && tar -xzvf kafka.tar.gz --strip-components=1 
 
