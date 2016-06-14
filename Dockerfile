@@ -1,17 +1,14 @@
 FROM java:openjdk-8-jre-alpine
 
-ARG MIRROR=http://apache.mirrors.pair.com
-ARG VERSION=0.10.0.0 
-ARG SCALA_VERSION="2.11"
+ARG ARCHIVE=http://apache.mirrors.pair.com/kafka/0.10.0.0/kafka_2.11-0.10.0.0.tgz
+ARG VERSION=0.10.0.0
 
 LABEL name="kafka" version=$VERSION
 
-RUN apk add --no-cache wget bash \
-    && mkdir /opt \
-    && wget -q -O - $MIRROR/zookeeper/$VERSION/kafka_$SCALA_VERSION-$VERSION.tgz | tar -xzf - -C /opt \
-    && mv /opt/kafka_$SCALA_VERSION-$VERSION /opt/kafka \
-    && mkdir -p /kafka
-
+RUN apk add --no-cache curl bash \
+    && mkdir /opt/kafka \
+    && curl -L $ARCHIVE -o /opt/kafka/kafka.tar.gz && \
+    cd /opt/kafka && tar -xzvf kafka.tar.gz --strip-components=1 
 
 WORKDIR /opt/kafka
 
