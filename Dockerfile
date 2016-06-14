@@ -8,7 +8,8 @@ LABEL name="kafka" version=$VERSION
 RUN apk add --no-cache curl bash \
     && mkdir -p /opt/kafka \
     && curl -L $ARCHIVE -o /opt/kafka/kafka.tar.gz && \
-    cd /opt/kafka && tar -xzvf kafka.tar.gz --strip-components=1 
+    tar -xzvf -C /opt/kafka kafka.tar.gz && \
+    rm -Rf kafka.tar.gz
 
 WORKDIR /opt/kafka
 
