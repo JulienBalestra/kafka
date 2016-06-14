@@ -9,7 +9,7 @@ RUN apk add --no-cache curl bash \
     && mkdir -p /opt/ \
     && curl -L $ARCHIVE -o /opt/kafka.tar.gz && \
     cd /opt/ && tar -xzvf kafka.tar.gz && \
-    mv kafka_$VERSION kafka &&
+    mv kafka_$VERSION kafka && \
     rm -Rf kafka.tar.gz
 
 WORKDIR /opt/kafka
