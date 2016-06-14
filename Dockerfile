@@ -1,7 +1,8 @@
 FROM java:openjdk-8-jre-alpine
 
 ARG MIRROR=http://apache.mirrors.pair.com
-ARG VERSION=0.10.0.0 SCALA_VERSION="2.11"
+ARG VERSION=0.10.0.0 
+ARG SCALA_VERSION="2.11"
 
 LABEL name="kafka" version=$VERSION
 
