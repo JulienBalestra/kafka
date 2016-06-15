@@ -16,6 +16,8 @@ WORKDIR /opt/kafka
 
 ENV KAFKA_HOME /opt/kafka
 
-VOLUME ["/kafka"]
+VOLUME ["/kafka/data", "/kafka/conf"]
 
-CMD ["/bin/bash"]
+ENTRYPOINT ["/opt/kafka/bin/kafka-server-start.sh"]
+
+CMD ["/kafka/conf/server.properties"]
