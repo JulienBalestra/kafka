@@ -15,25 +15,14 @@
 # limitations under the License.
 
 # Issue http://stackoverflow.com/questions/17668262/kafka-cant-connect-to-zookeeper-fatal-fatal-error-during-kafkaserverstable-star
+# https://cwiki.apache.org/confluence/display/KAFKA/FAQ -> "Why can't my consumers/producers connect to the brokers?"
 function workaround {
-    
-    DYNAMIC_HOSTS="/kafka/conf/hosts"
-    echo "generate symbolic link for /etc/hosts entries"
-    
-    if [ -f  ]
-    then
-        rm -v /etc/hosts
-    else
-        echo "file ${DYNAMIC_HOSTS} not here"
-        exit 2
-    fi
-    
-    ln -sv ${DYNAMIC_HOSTS} /etc/hosts
-    if [ $? -ne 0 ]
-    then
-        echo "fail to link /etc/hosts" >&2
-        exit 2
-    fi
+    echo "127.0.0.1 localhost localhost.localdomain" > /etc/hosts
+    for ip in $(ip a | grep -w inet | grep -v "127.0.0.1/8" |
+        grep -Eo '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}')
+    do
+        echo "${ip} $(hostname)" >> /etc/hosts
+    done
 }
 
 if [ $# -lt 1 ];
