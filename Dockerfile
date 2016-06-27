@@ -10,12 +10,10 @@ RUN apk add --no-cache curl bash \
     && curl -L $ARCHIVE -o /opt/kafka.tar.gz && \
     cd /opt/ && tar -xzvf kafka.tar.gz && \
     mv kafka_$VERSION kafka && \
-    rm -Rf kafka.tar.gz && \
-    cp /opt/kafka/bin/kafka-server-start.sh /opt/kafka/bin/kafka-server-start.sh.original 
+    rm -Rf kafka.tar.gz
 
 WORKDIR /opt/kafka
 
-COPY kafka-server-start.sh /opt/kafka/bin/kafka-server-start.sh
 
 ENV KAFKA_HOME /opt/kafka
 
